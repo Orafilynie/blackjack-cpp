@@ -25,6 +25,10 @@ int playerCardsValue = 0;
 int dealerCardsCount = 0;
 int dealerCardsValue = 0;
 
+int tokens = 50;
+int balcheck = 0;
+int bet = 0;
+
 bool isPlayer = false;
 bool isDealer = false;
 bool isDealerVisible = false;
@@ -32,6 +36,7 @@ bool isDealerVisible = false;
 /*DÉCLARATIONS ANTICIPÉES*/
 
 void initMenu();
+void initBet();
 
 /*FONCTIONS DU CODE*/
 
@@ -197,6 +202,8 @@ void displayPlayerDrawLost() {
 
     cout << "Valeur des cartes du joueur : " << playerCardsValue << endl << endl << endl;
 
+    cout << "Vous avez également perdu votre mise de " << bet << " jetons." << endl << endl << endl;
+
     cout << "1. Menu" << endl;
     cout << "2. Quitter" << endl << endl;
     cout << "Choisissez une action : ";
@@ -244,6 +251,8 @@ void displayPlayerGapLost() {
 
     cout << "Valeur des cartes du joueur : " << playerCardsValue << endl << endl << endl;
 
+    cout << "Vous avez également perdu votre mise de " << bet << " jetons." << endl << endl << endl;
+
     cout << "1. Menu" << endl;
     cout << "2. Quitter" << endl << endl;
     cout << "Choisissez une action : ";
@@ -280,6 +289,10 @@ void displayDealerDrawLost() {
     cout << endl;
 
     cout << "Valeur des cartes du croupier : " << dealerCardsValue << endl << endl << endl;
+
+    cout << "Vous avez également gagné votre mise de " << bet << " jetons. " << "Vous remporter donc " << bet << " jetons supplémentaires." << endl << endl << endl;
+
+    tokens = tokens + bet * 2;
 
     cout << "1. Menu" << endl;
     cout << "2. Quitter" << endl << endl;
@@ -328,6 +341,10 @@ void displayDealerGapLost() {
 
     cout << "Valeur des cartes du joueur : " << dealerCardsValue << endl << endl << endl;
 
+    cout << "Vous avez également gagné votre mise de " << bet << " jetons. " << "Vous remporter donc " << bet << " jetons supplémentaires." << endl << endl << endl;
+
+    tokens = tokens + bet * 2;
+
     cout << "1. Menu" << endl;
     cout << "2. Quitter" << endl << endl;
     cout << "Choisissez une action : ";
@@ -374,6 +391,10 @@ void displayEquality() {
     cout << endl;
 
     cout << "Valeur des cartes du joueur : " << playerCardsValue << endl << endl << endl;
+
+    cout << "Vous avez récuperéz votre mise de " << bet << " jetons sans gains supplémentaires." << endl << endl << endl;
+
+    tokens = tokens + bet;
 
     cout << "1. Menu" << endl;
     cout << "2. Quitter" << endl << endl;
@@ -527,6 +548,48 @@ void initGame() {
     displayGame();
 }
 
+void balanceCheck() {
+    if (balcheck > tokens) {
+        clearConsole();
+        int betamountactionchoice = 0;
+
+        cout << "Vous ne pouvez pas misez plus que ce que vous possedez ! Veuillez réessayez avec une mise valide." << endl << endl;
+
+        cout << "1. Recommencer" << endl;
+        cout << "2. Menu" << endl << endl;
+        cout << "Choisissez une action : ";
+
+        cin >> betamountactionchoice;
+
+        switch (betamountactionchoice)
+        {
+        case 1:
+            initBet();
+            break;
+        case 2:
+            initMenu();
+            break;
+        default:
+        balanceCheck();
+            break;
+        }
+    } else {
+        tokens = tokens - balcheck;
+        bet = balcheck;
+        initGame();
+    }
+}
+
+void initBet() {
+    clearConsole();
+
+    cout << "Vous possédez " << tokens << " jetons. Combien voulez vous miser sur cette partie ?" << endl << endl;
+    cout << "Entrez le montant de la mise : ";
+
+    cin >> balcheck;
+    balanceCheck();
+}
+
 void initMenu() {
     clearConsole();
 
@@ -544,6 +607,8 @@ void initMenu() {
 
     cout << endl;
 
+    cout << "Vous possédez " << tokens << " jetons." << endl << endl;
+
     cout << "1. Jouer" << endl;
     cout << "2. Quitter" << endl << endl;
     cout << "Choisissez une action : ";
@@ -552,7 +617,7 @@ void initMenu() {
 
     switch (menuactionchoice) {
         case 1:
-            initGame();
+            initBet();
             break;
         case 2:
             exit(0);
