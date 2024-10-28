@@ -37,6 +37,7 @@ bool isDealerVisible = false;
 
 void initMenu();
 void initBet();
+void displayGame();
 
 /*FONCTIONS DU CODE*/
 
@@ -239,7 +240,7 @@ void displayPlayerGapLost() {
 
     cout << endl;
 
-    cout << "Valeur des cartes du joueur : " << dealerCardsValue << endl << endl;
+    cout << "Valeur des cartes du croupier : " << dealerCardsValue << endl << endl;
 
     cout << "Cartes du joueur : ";
 
@@ -269,6 +270,47 @@ void displayPlayerGapLost() {
         default:
             clearConsole();
             displayPlayerGapLost();
+            break;
+    }
+}
+
+void displayPlayerNaturalWin() {
+    int playernaturalactionchoice = 0;
+
+    clearConsole();
+
+    cout << "Vous avez gagné ! Vous avez réalisé un BlackJack." << endl << endl;
+
+    cout << "Cartes du joueur : ";
+
+    for (int i = 0; i < playerCardsCount; i++) {
+        cout << player[i] << " ";
+    }
+
+    cout << endl;
+
+    cout << "Valeur des cartes du joueur : " << playerCardsValue << endl << endl << endl;
+
+    cout << "Vous avez également gagné votre mise de " << bet << " jetons. " << "Vous remporter donc " << bet + bet / 2 << " jetons supplémentaires." << endl << endl << endl;
+
+    tokens = tokens + bet * 2 + bet / 2;
+
+    cout << "1. Menu" << endl;
+    cout << "2. Quitter" << endl << endl;
+    cout << "Choisissez une action : ";
+
+    cin >> playernaturalactionchoice;
+
+    switch (playernaturalactionchoice) {
+        case 1:
+            resetGame();
+            break;
+        case 2:
+            exit(0);
+            break;
+        default:
+            clearConsole();
+            displayPlayerNaturalWin();
             break;
     }
 }
@@ -339,7 +381,7 @@ void displayDealerGapLost() {
 
     cout << endl;
 
-    cout << "Valeur des cartes du joueur : " << dealerCardsValue << endl << endl << endl;
+    cout << "Valeur des cartes du croupier : " << dealerCardsValue << endl << endl << endl;
 
     cout << "Vous avez également gagné votre mise de " << bet << " jetons. " << "Vous remporter donc " << bet << " jetons supplémentaires." << endl << endl << endl;
 
@@ -365,6 +407,45 @@ void displayDealerGapLost() {
     }
 }
 
+void displayDealerNaturalWin() {
+    int dealernaturalactionchoice = 0;
+
+    clearConsole();
+
+    cout << "Vous avez perdu ! Le croupier a réalisé un BlackJack." << endl << endl;
+
+    cout << "Cartes du croupier : ";
+
+    for (int i = 0; i < dealerCardsCount; i++) {
+        cout << dealer[i] << " ";
+    }
+
+    cout << endl;
+
+    cout << "Valeur des cartes du croupier : " << dealerCardsValue << endl << endl << endl;
+
+    cout << "Vous avez également perdu votre mise de " << bet << " jetons." << endl << endl << endl;
+
+    cout << "1. Menu" << endl;
+    cout << "2. Quitter" << endl << endl;
+    cout << "Choisissez une action : ";
+
+    cin >> dealernaturalactionchoice;
+
+    switch (dealernaturalactionchoice) {
+        case 1:
+            resetGame();
+            break;
+        case 2:
+            exit(0);
+            break;
+        default:
+            clearConsole();
+            displayDealerNaturalWin();
+            break;
+    }
+}
+
 void displayEquality() {
     int equalityplayeractionchoice = 0;
 
@@ -380,7 +461,7 @@ void displayEquality() {
 
     cout << endl;
 
-    cout << "Valeur des cartes du joueur : " << dealerCardsValue << endl << endl;
+    cout << "Valeur des cartes du croupier : " << dealerCardsValue << endl << endl;
 
     cout << "Cartes du joueur : ";
 
@@ -403,6 +484,57 @@ void displayEquality() {
     cin >> equalityplayeractionchoice;
 
     switch (equalityplayeractionchoice) {
+        case 1:
+            resetGame();
+            break;
+        case 2:
+            exit(0);
+            break;
+        default:
+            clearConsole();
+            displayEquality();
+            break;
+    }
+}
+
+void displayNaturalEquality() {
+    int naturalequalityactionchoice = 0;
+
+    clearConsole();
+
+    cout << "Vous êtes en égalité ! Vous et le croupier ont réalisées un BlackJack." << endl << endl << endl;
+
+    cout << "Cartes du croupier : ";
+
+    for (int i = 0; i < dealerCardsCount; i++) {
+        cout << dealer[i] << " ";
+    }
+
+    cout << endl;
+
+    cout << "Valeur des cartes du croupier : " << dealerCardsValue << endl << endl;
+
+    cout << "Cartes du joueur : ";
+
+    for (int i = 0; i < playerCardsCount; i++) {
+        cout << player[i] << " ";
+    }
+
+    cout << endl;
+
+    cout << "Valeur des cartes du joueur : " << playerCardsValue << endl << endl << endl;
+
+    cout << "Vous avez récuperéz votre mise de " << bet << " jetons sans gains supplémentaires." << endl << endl << endl;
+
+    tokens = tokens + bet;
+
+    cout << "1. Menu" << endl;
+    cout << "2. Quitter" << endl << endl;
+    cout << "Choisissez une action : ";
+
+    cin >> naturalequalityactionchoice;
+
+    switch (naturalequalityactionchoice) {
         case 1:
             resetGame();
             break;
@@ -477,6 +609,18 @@ void revealDealerCard() {
         }
 }
 
+void checkNaturalWin() {
+    if (playerCardsValue == 21 && dealerCardsValue == 21) {
+        displayNaturalEquality();
+    } else if (playerCardsValue == 21) {
+        displayPlayerNaturalWin();
+    } else if (dealerCardsValue == 21) {
+        displayDealerNaturalWin();
+    } else {
+        displayGame();
+    }
+}
+
 void displayGame() {
     clearConsole();
 
@@ -545,7 +689,7 @@ void initGame() {
     isPlayer = true;
     isDealer = false;
 
-    displayGame();
+    checkNaturalWin();
 }
 
 void balanceCheck() {
