@@ -50,7 +50,6 @@ void clearConsole() {
 }
 
 void resetGame() {
-    currentCardArrayPos = 0;
     playerCardArrayPos = 0;
     dealerCardArrayPos = 0;
 
@@ -668,8 +667,6 @@ void displayGame() {
 void initGame() {
     clearConsole();
 
-    initCardDeck();
-
     for (int i = 0; i <= 1; i++) {
         isPlayer = true;
         isDealer = false;
@@ -753,6 +750,8 @@ void initMenu() {
 
     cout << "Vous possédez " << tokens << " jetons." << endl << endl;
 
+    cout << "Il reste " << 52 - currentCardArrayPos << " cartes." << endl << endl;
+
     cout << "1. Jouer" << endl;
     cout << "2. Quitter" << endl << endl;
     cout << "Choisissez une action : ";
@@ -776,6 +775,7 @@ void initMenu() {
 /*POINT D'EXECUTION DU CODE*/
 
 int main() {
+    initCardDeck();
     initMenu();
     return 0;
 }
