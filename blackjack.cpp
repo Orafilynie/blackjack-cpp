@@ -724,11 +724,33 @@ void balanceCheck() {
 void initBet() {
     clearConsole();
 
-    cout << "Vous possédez " << tokens << " jetons. Combien voulez vous miser sur cette partie ?" << endl << endl;
-    cout << "Entrez le montant de la mise : ";
 
-    cin >> balcheck;
-    balanceCheck();
+    if (52 - currentCardArrayPos >= 4) {
+        cout << "Vous possédez " << tokens << " jetons. Combien voulez vous miser sur cette partie ?" << endl << endl;
+        cout << "Entrez le montant de la mise : ";
+
+        cin >> balcheck;
+        balanceCheck();
+    } else {
+        int resetactionchoice = 0;
+
+        cout << "Il n'y a plus de cartes, veuillez redémarrer le jeu." << endl << endl;
+
+        cout << "1. Quitter" << endl << endl;
+        cout << "Choisissez une action : ";
+
+        cin >> resetactionchoice;
+
+        switch (resetactionchoice) {
+            case 1:
+                exit(0);
+                break;
+            default:
+                initBet();
+                break;
+        }
+    }
+
 }
 
 void initMenu() {
