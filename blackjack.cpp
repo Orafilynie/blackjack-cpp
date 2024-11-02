@@ -722,6 +722,9 @@ void initBet() {
         cout << "Entrez le montant de la mise : ";
 
         cin >> balcheck;
+        
+        balcheck = abs(balcheck);
+        
         balanceCheck();
     } else {
         int resetactionchoice = 0;
