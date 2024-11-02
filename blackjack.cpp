@@ -90,6 +90,7 @@ void choosePlayerAceValue() {
     clearConsole();
 
     cout << "Vous avez trouvé un As ! Choississez sa valeur entre 1 et 11." << endl << endl;
+    cout << "La valeur actuelle de votre main est : " << playerCardsValue << endl << endl << endl;
     cout << "Choisissez la valeur : ";
 
     cin >> aceactionchoice;
@@ -734,7 +735,7 @@ void initBet() {
     } else {
         int resetactionchoice = 0;
 
-        cout << "Il n'y a plus de cartes, veuillez redémarrer le jeu." << endl << endl;
+        cout << "Il n'y a plus assez de cartes pour lancer une partie ! Veuillez redémarrer le jeu." << endl << endl;
 
         cout << "1. Quitter" << endl << endl;
         cout << "Choisissez une action : ";
