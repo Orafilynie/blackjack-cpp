@@ -219,7 +219,6 @@ void displayPlayerDrawLost() {
             exit(0);
             break;
         default:
-            clearConsole();
             displayPlayerDrawLost();
             break;
     }
@@ -268,7 +267,6 @@ void displayPlayerGapLost() {
             exit(0);
             break;
         default:
-            clearConsole();
             displayPlayerGapLost();
             break;
     }
@@ -309,7 +307,6 @@ void displayPlayerNaturalWin() {
             exit(0);
             break;
         default:
-            clearConsole();
             displayPlayerNaturalWin();
             break;
     }
@@ -350,7 +347,6 @@ void displayDealerDrawLost() {
             exit(0);
             break;
         default:
-            clearConsole();
             displayDealerDrawLost();
             break;
     }
@@ -401,7 +397,6 @@ void displayDealerGapLost() {
             exit(0);
             break;
         default:
-            clearConsole();
             displayDealerDrawLost();
             break;
     }
@@ -440,7 +435,6 @@ void displayDealerNaturalWin() {
             exit(0);
             break;
         default:
-            clearConsole();
             displayDealerNaturalWin();
             break;
     }
@@ -491,7 +485,6 @@ void displayEquality() {
             exit(0);
             break;
         default:
-            clearConsole();
             displayEquality();
             break;
     }
@@ -542,7 +535,6 @@ void displayNaturalEquality() {
             exit(0);
             break;
         default:
-            clearConsole();
             displayEquality();
             break;
     }
@@ -656,7 +648,6 @@ void displayGame() {
                 revealDealerCard();
                 break;
             default:
-                clearConsole();
                 displayGame();
                 break;
         }
@@ -789,7 +780,6 @@ void initMenu() {
             exit(0);
             break;
         default:
-            clearConsole();
             initMenu();
             break;
     }
